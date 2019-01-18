@@ -158,6 +158,7 @@
     <ClCompile Include="sunit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="assertnc.hpp" />
     <ClInclude Include="Unit.hpp" />
     <ClInclude Include="UnitStream.hpp" />
   </ItemGroup>

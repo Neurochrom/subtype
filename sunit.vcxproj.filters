@@ -6,5 +6,6 @@
   <ItemGroup>
     <ClInclude Include="Unit.hpp" />
     <ClInclude Include="UnitStream.hpp" />
+    <ClInclude Include="assertnc.hpp" />
   </ItemGroup>
 </Project>
