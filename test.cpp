@@ -2,12 +2,11 @@
 #include <iostream>
 
 #include "assertnc.hpp"
-#include "Unit.hpp"
-#include "UnitStream.hpp"
+#include "Subtype.hpp"
+#include "SubtypeStream.hpp"
 
-UNIT_FULL_DEF(int, PubIndex);
-UNIT_FULL_DEF(int, PrivIndex);
-
+SUBTYPE_FULL_DEF(int, PubIndex);
+SUBTYPE_FULL_DEF(int, PrivIndex);
 
 PubIndex pubi = 3;
 PubIndex pubi2 = 4;
