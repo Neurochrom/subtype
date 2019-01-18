@@ -1,3 +1,6 @@
+// Copyright (c) 2015-2019 Paweł Cichocki
+// License: https://opensource.org/licenses/MIT
+
 #include <assert.h>
 #include <iostream>
 
