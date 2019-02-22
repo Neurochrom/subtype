@@ -9,7 +9,12 @@ class Subtype
    T t;
 public:
 
+   T& get() { return t; }
+   const T& get() const { return t; }
+
    Subtype(const T& t) : t(t) {};
+
+   Subtype(const Subtype<T, D>& o) : t(o.t) {}
 
    template <class AT, class AD>
    Subtype(const Subtype<AT, AD>& a) = delete;
@@ -19,6 +24,11 @@ public:
 
 
    bool operator==(const Subtype<T, D>& other) const { return t == other.t; }
+   bool operator!=(const Subtype<T, D>& other) const { return t != other.t; }
+   bool operator<(const Subtype<T, D>& other) const { return t < other.t; }
+   bool operator>(const Subtype<T, D>& other) const { return t > other.t; }
+   bool operator<=(const Subtype<T, D>& other) const { return t <= other.t; }
+   bool operator>=(const Subtype<T, D>& other) const { return t >= other.t; }
 
    friend Subtype<T, D> operator+(Subtype<T, D> a, const Subtype<T, D>& b) { a.t += b.t; return a; }
    friend Subtype<T, D> operator-(Subtype<T, D> a, const Subtype<T, D>& b) { a.t -= b.t; return a; }
@@ -34,3 +44,16 @@ public:
 #define SUBTYPE(name) STBEG_##name##_END
 #define SUBTYPE_CLASS_DEF(name) class SUBTYPE(name) {}
 #define SUBTYPE_FULL_DEF(baseType, name) SUBTYPE_CLASS_DEF(name); typedef Subtype<baseType, SUBTYPE(name)> name
+
+namespace std
+{
+template <class T, class D>
+struct hash<Subtype<T, D>>
+{
+   size_t operator()(const Subtype<T, D>& x) const noexcept
+   {
+      static const std::hash<T> h;
+      return h(x.get());
+   }
+};
+} // end std namespace
