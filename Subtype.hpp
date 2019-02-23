@@ -54,9 +54,9 @@ public:
    Subtype<T, D> operator--(int) { Subtype<T, D> r(*this); t--; return r; }
 };
 
-#define SUBTYPE(name) STBEG_##name##_END
-#define SUBTYPE_CLASS_DEF(name) class SUBTYPE(name) {}
-#define SUBTYPE_FULL_DEF(baseType, name) SUBTYPE_CLASS_DEF(name); typedef Subtype<baseType, SUBTYPE(name)> name
+#define SUBTYPE_DCLASS_NAME(name) STBEG_##name##_END
+#define SUBTYPE_DCLASS_DEF(name) class SUBTYPE_DCLASS_NAME(name) {}
+#define SUBTYPE_DEF(baseType, name) SUBTYPE_DCLASS_DEF(name); typedef Subtype<baseType, SUBTYPE_DCLASS_NAME(name)> name
 
 namespace std
 {

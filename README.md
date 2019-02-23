@@ -17,15 +17,15 @@ Of course it all only matters in compile time - there should be no run-time pena
 
 ## Usage
 
-The simplest way to define a subtype is by using the SUBTYPE_FULL_DEF marco:
+The simplest way to define a subtype is by using the SUBTYPE_DEF marco:
 
 ```C++
 #include "subtype/Subtype.hpp"
 
 // Define a new type called PubIndex based on an int
-SUBTYPE_FULL_DEF(int, PubIndex);
+SUBTYPE_DEF(int, PubIndex);
 // Define another type called PrivIndex also based on an int
-SUBTYPE_FULL_DEF(int, PrivIndex);
+SUBTYPE_DEF(int, PrivIndex);
 ```
 
 You can later use the defined subtypes

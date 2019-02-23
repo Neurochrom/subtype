@@ -8,8 +8,8 @@
 #include "Subtype.hpp"
 #include "SubtypeStream.hpp"
 
-SUBTYPE_FULL_DEF(int, PubIndex);
-SUBTYPE_FULL_DEF(int, PrivIndex);
+SUBTYPE_DEF(int, PubIndex);
+SUBTYPE_DEF(int, PrivIndex);
 
 PubIndex pubi = 3;
 PubIndex pubi2 = 4;
