@@ -10,7 +10,8 @@ for physical units where dimensional analysis might come in handy.
 
 Subtype is a header only super simple library that allows you to very easily define new (sub)types. A subtype
 is similar to a typedef and behaves the same way as the underlying type, but there is no automatic conversion to other
-subtypes built on to top of the same base type or even to the base type itself.
+subtypes built on to top of the same base type or even to the base type itself (but the base type will automatically
+convert to the subtype though).
 
 Of course it all only matters in compile time - there should be no run-time penalty with any modern compiler.
 
