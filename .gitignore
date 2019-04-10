@@ -1,4 +1,4 @@
-*.out
+subtypeTest
 *.user
 winBuild/.vs
 winBuild/obj

@@ -59,7 +59,7 @@ A sample is provided in test.cpp.
 To build the sample on unixish systems:
 
 ```bash
-clang++ -std=c++1z -O3 test.cpp -Wall -o builds/subtypeTest.out
+clang++ -std=c++1z test.cpp -Wall -o subtypeTest
 ```
 
 You can use g++ instead of clang++ if you so choose.
