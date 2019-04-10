@@ -89,15 +89,28 @@ public:
 #define SUBTYPE_DEF(baseType, name) SUBTYPE_DCLASS_DEF(name); typedef Subtype<baseType, SUBTYPE_DCLASS_NAME(name)> name
 #define SUBTYPE_NO_ARITH_OP_DEF(baseType, name) SUBTYPE_DCLASS_DEF(name); typedef SubtypeNoArithOp<baseType, SUBTYPE_DCLASS_NAME(name)> name
 
+// Define std::hash so that using std::unordered_* is not a pain
 namespace std
 {
+
 template <class T, class D>
 struct hash<Subtype<T, D>>
 {
-   size_t operator()(const SubtypeBase<T, D>& x) const noexcept
+   size_t operator()(const Subtype<T, D>& x) const noexcept
    {
       static const std::hash<T> h;
       return h(x.get());
    }
 };
+
+template <class T, class D>
+struct hash<SubtypeNoArithOp<T, D>>
+{
+   size_t operator()(const SubtypeNoArithOp<T, D>& x) const noexcept
+   {
+      static const std::hash<T> h;
+      return h(x.get());
+   }
+};
+
 } // end std namespace

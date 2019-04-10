@@ -3,6 +3,7 @@
 
 #include <assert.h>
 #include <iostream>
+#include <unordered_set>
 
 #include "assertnc.hpp"
 #include "Subtype.hpp"
@@ -106,6 +107,7 @@ int main()
    assert(a <= a && a <= b && !(b <= a));
    std::cout << "Operators for Subtype TEST PASSED" << std::endl;
 
+   // Switch test
    PubIndex pin = 2;
    switch (pin.get())
    {
@@ -120,6 +122,19 @@ int main()
          std::cerr << "Switch TEST FAILED! (case default)" << std::endl;
          return -1;
    }
+
+   // std::hash test
+   auto pubi1000h = std::hash<PubIndex>()(PubIndex(1000));
+   std::cout << "std::hash of PubIndex(1000): " << pubi1000h << std::endl;
+
+   auto t1000h = std::hash<TimePoint>()(TimePoint(1000));
+   std::cout << "std::hash of TimePoint(1000): " << t1000h << std::endl;
+
+   std::unordered_set<TimePoint> tps { 1000, 2000 };
+   assert(tps.count(TimePoint(1000)));
+   assert(!tps.count(TimePoint(1001)));
+
+   std::cout << "std::hash TEST PASSED" << std::endl;
 
    std::cout << "Goodbye" << std::endl;
 }
