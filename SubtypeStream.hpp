@@ -26,8 +26,8 @@ struct DifferentiatorTraits
 };
 
 template <class T, class D>
-std::ostream& operator<< (std::ostream& s, const Subtype<T, D>& u)
+std::ostream& operator<< (std::ostream& s, const SubtypeBase<T, D>& u)
 {
-   s << (T)u << DifferentiatorTraits<D>::name();
+   s << u.get() << DifferentiatorTraits<D>::name();
    return s;
 }
