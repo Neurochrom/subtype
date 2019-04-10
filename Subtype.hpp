@@ -10,9 +10,9 @@ class Subtype
 public:
 
    T& get() { return t; }
-   const T& get() const { return t; }
+   constexpr const T& get() const { return t; }
 
-   Subtype(const T& t) : t(t) {};
+   constexpr Subtype(const T& t) : t(t) {};
 
    Subtype(const Subtype<T, D>& o) : t(o.t) {}
 

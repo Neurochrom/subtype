@@ -19,6 +19,9 @@ ASSERT_DOES_NOT_COMPILE_PREP2(privi, pubi, privi + pubi, 0);
 ASSERT_DOES_NOT_COMPILE_PREP2(pubi, pubi2, pubi + pubi2, 1);
 ASSERT_DOES_NOT_COMPILE_PREP(pubi, pubi % pubi, 2);
 
+static constexpr PubIndex PUB_ONE = 1;
+static constexpr PubIndex PUB_TWO = 2;
+
 int main()
 {
    std::cout << "Hi" << std::endl;
@@ -68,6 +71,22 @@ int main()
    assert(a++ == 12 && a == 13);
    assert(--a == 12 && a == 12);
    assert(a-- == 12 && a == 11);
+   std::cout << "OPERATOR TESTS PASSED" << std::endl;
+
+   PubIndex pin = 2;
+   switch (pin.get())
+   {
+      case PUB_ONE.get():
+         std::cerr << "SWITCH TEST FAILED! (case one)" << std::endl;
+         return -1;
+         break;
+      case PUB_TWO.get():
+         std::cout << "SWITCH TEST PASSED" << std::endl;
+         break;
+      default:
+         std::cerr << "SWITCH TEST FAILED! (case default)" << std::endl;
+         return -1;
+   }
 
    std::cout << "Goodbye" << std::endl;
 }
