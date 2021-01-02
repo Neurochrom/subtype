@@ -1,7 +1,7 @@
 ﻿# Subtype - a simple stronger typing lib for C++
 
 C++ has a quiet strong type system. However, originally numerical types were differentiated by how they represent the
-numerical value. So if we have int, unsigned int, float, and so on. What we often want though, is for the type system
+numerical value. So we have int, unsigned int, float, and so on. What we often want though, is for the type system
 to describe actual utility. For example if you have two integers, one being the index of a table, and another being
 a counter you might want them to be a different type, so that compiler prevents you from mixing them up accidentally.
 
