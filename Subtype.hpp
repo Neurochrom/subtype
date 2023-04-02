@@ -10,6 +10,7 @@ protected:
    T t;
 
 public:
+   typedef T base_type;
    constexpr SubtypeBase(const T& t) : t(t) {};
    T& get() { return t; }
    constexpr const T& get() const { return t; }
