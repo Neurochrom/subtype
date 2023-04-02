@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2019 Paweł Cichocki
+// Copyright (c) 2015-2023 Paweł Cichocki
 // License: https://opensource.org/licenses/MIT
 
 #pragma once
@@ -11,7 +11,8 @@ protected:
 
 public:
    typedef T base_type;
-   constexpr SubtypeBase(const T& t) : t(t) {};
+   constexpr explicit SubtypeBase(const T& t) : t(t) {};
+
    T& get() { return t; }
    constexpr const T& get() const { return t; }
 };
@@ -20,16 +21,17 @@ template <class T, class D>
 class Subtype : public SubtypeBase<T, D>
 {
 public:
-   constexpr Subtype(const T& t) : SubtypeBase<T, D>(t) {};
+   constexpr /*explicit*/ Subtype(const T& t) : SubtypeBase<T, D>(t) {};
+   // Note that the usage of explicit forces:
+   // std::atomic<SomeSubType> a(123);
+   //    => std::atomic<SomeSubType> a(SomeSubType(123));
+   // std::set<SomeSubType> s { 1, 2 };
+   //    => std::set<SomeSubType> s { SomeSubType(1), SomeSubType(2) };
 
-   Subtype(const Subtype<T, D>& o) : SubtypeBase<T, D>(o.t) {}
-
-   template <class AT, class AD>
-   Subtype(const Subtype<AT, AD>& a) = delete;
+   Subtype(Subtype<T, D> const&) = default;
 
    explicit operator T() { return this->t; }
    explicit operator const T&() const { return this->t; }
-
 
    bool operator==(const Subtype<T, D>& other) const { return this->t == other.t; }
    bool operator!=(const Subtype<T, D>& other) const { return this->t != other.t; }
@@ -39,13 +41,13 @@ public:
    bool operator>=(const Subtype<T, D>& other) const { return this->t >= other.t; }
 
    friend Subtype<T, D> operator+(Subtype<T, D> a, const Subtype<T, D>& b) { a.t += b.t; return a; }
-   friend Subtype<T, D> operator-(Subtype<T, D> a, const Subtype<T, D>& b) { a.t -= b.t; return a; }
-   friend Subtype<T, D> operator*(Subtype<T, D> a, const Subtype<T, D>& b) { a.t *= b.t; return a; }
-   friend Subtype<T, D> operator/(Subtype<T, D> a, const Subtype<T, D>& b) { a.t /= b.t; return a; }
-   friend Subtype<T, D> operator%(Subtype<T, D> a, const Subtype<T, D>& b) { a.t %= b.t; return a; }
-   friend Subtype<T, D> operator&(Subtype<T, D> a, const Subtype<T, D>& b) { a.t &= b.t; return a; }
-   friend Subtype<T, D> operator|(Subtype<T, D> a, const Subtype<T, D>& b) { a.t |= b.t; return a; }
-   friend Subtype<T, D> operator^(Subtype<T, D> a, const Subtype<T, D>& b) { a.t ^= b.t; return a; }
+   friend Subtype<T, D> operator-(const Subtype<T, D>& a, const Subtype<T, D>& b) { return Subtype<T, D>(a.t - b.t); }
+   friend Subtype<T, D> operator*(const Subtype<T, D>& a, const Subtype<T, D>& b) { return Subtype<T, D>(a.t * b.t); }
+   friend Subtype<T, D> operator/(const Subtype<T, D>& a, const Subtype<T, D>& b) { return Subtype<T, D>(a.t / b.t); }
+   friend Subtype<T, D> operator%(const Subtype<T, D>& a, const Subtype<T, D>& b) { return Subtype<T, D>(a.t % b.t); }
+   friend Subtype<T, D> operator&(const Subtype<T, D>& a, const Subtype<T, D>& b) { return Subtype<T, D>(a.t & b.t); }
+   friend Subtype<T, D> operator|(const Subtype<T, D>& a, const Subtype<T, D>& b) { return Subtype<T, D>(a.t | b.t); }
+   friend Subtype<T, D> operator^(const Subtype<T, D>& a, const Subtype<T, D>& b) { return Subtype<T, D>(a.t ^ b.t); }
 
    Subtype<T, D>& operator+=(const Subtype<T, D>& a) { this->t += a.t; return *this; }
    Subtype<T, D>& operator-=(const Subtype<T, D>& a) { this->t -= a.t; return *this; }
@@ -66,16 +68,12 @@ template <class T, class D>
 class SubtypeNoArithOp : public SubtypeBase<T, D>
 {
 public:
-   constexpr SubtypeNoArithOp(const T& t) : SubtypeBase<T, D>(t) {};
+   constexpr /*explicit*/ SubtypeNoArithOp(const T& t) : SubtypeBase<T, D>(t) {};
 
-   SubtypeNoArithOp(const SubtypeNoArithOp<T, D>& o) : SubtypeBase<T, D>(o.t) {}
-
-   template <class AT, class AD>
-   SubtypeNoArithOp(const SubtypeNoArithOp<AT, AD>& a) = delete;
+   constexpr SubtypeNoArithOp(const SubtypeNoArithOp<T, D>& o) = default;
 
    explicit operator T() { return this->t; }
    explicit operator const T&() const { return this->t; }
-
 
    bool operator==(const SubtypeNoArithOp<T, D>& other) const { return this->t == other.t; }
    bool operator!=(const SubtypeNoArithOp<T, D>& other) const { return this->t != other.t; }
