@@ -11,4 +11,7 @@
   <ItemGroup>
     <None Include="..\README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\Subtype.natvis" />
+  </ItemGroup>
 </Project>

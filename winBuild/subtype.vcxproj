@@ -29,6 +29,9 @@
   <ItemGroup>
     <None Include="..\README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\Subtype.natvis" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{973B8A0A-9125-42E1-AD2B-17483827E3FA}</ProjectGuid>
