@@ -6,6 +6,7 @@
 #include <atomic>
 #include <iostream>
 #include <unordered_set>
+#include <vector>
 #include <type_traits>
 #include <set>
 
@@ -82,6 +83,12 @@ int main()
 
    // This should not compile
    //auto pp = 1 + priv + 2 + pub + 3;
+
+   std::vector<PubIndex> pubiVec(7, PubIndex(69));
+   pubiVec.resize(16, PubIndex(42));
+   // resizing down but suplying the second argument to avoid the compiler
+   // being sour over not having a default constructor
+   pubiVec.resize(6, PubIndex(42));
 
    //auto error = someTimeAgo + recently;  // no arythmetic on TimePoint
    //PubIndex error2;  // can't be uninitialized
